@@ -1,0 +1,45 @@
+<!-- homepage.html -->
+{% extends 'base.html' %}
+
+{% block title %}Home - SPARK App{% endblock %}
+
+{% block content %}
+    <!-- Main Content for Homepage -->
+    <div class="row">
+        <div class="col-12">
+            <h2>Welcome to SPARK!</h2>
+            <p>Your go-to application for managing staff participation and activities.</p>
+        </div>
+    </div>
+    
+    <!-- Additional Content, such as latest events or employee stats, can go here -->
+    <div class="row">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Upcoming Events</h5>
+                    <p class="card-text">Check out the latest events your staff are participating in.</p>
+                    <a href="#" class="btn btn-primary">View Events</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Employee Participation</h5>
+                    <p class="card-text">View employee activity and performance records.</p>
+                    <a href="#" class="btn btn-secondary">View Participation</a>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Reports</h5>
+                    <p class="card-text">Generate custom reports to track staff performance and event participation.</p>
+                    <a href="#" class="btn btn-success">Generate Report</a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

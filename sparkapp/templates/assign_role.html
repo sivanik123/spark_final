@@ -1,0 +1,13 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h5 class="mt-4">Events Participated by {{ employee.employee_name }}:</h5>
+<ul>
+  {% for event in participated_events %}
+    <li>{{ event.event_name }} - {{ event.event_date }}</li>
+  {% empty %}
+    <li>No events participated.</li>
+  {% endfor %}
+</ul>
+
+{% endblock %}

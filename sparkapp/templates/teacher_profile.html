@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2>Teacher Profile</h2>
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">{{ teacher.emp_name }}</h5>
+            <p><strong>Email:</strong> {{ teacher.email }}</p>
+            <p><strong>Department:</strong> {{ teacher.department }}</p>
+            <p><strong>Username:</strong> {{ teacher.username }}</p>
+            <p><strong>Status:</strong> {{ teacher.status }}</p>
+
+            {% if teacher.profile_pic %}
+            <img src="{{ teacher.profile_pic.url }}" alt="Profile Picture" class="img-thumbnail" width="150">
+            {% endif %}
+            
+            <hr>
+            <h4>Edit Profile</h4>
+            <form method="POST" enctype="multipart/form-data">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <button type="submit" class="btn btn-primary">Save Changes</button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

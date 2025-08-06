@@ -1,0 +1,144 @@
+{% extends 'base.html' %}
+
+{% block title %}Employee Details - {{ employee.emp_name }}{% endblock %}
+
+{% block content %}
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Employee Details - {{ employee.emp_name }}</h2>
+        </div>
+        <div class="card-body">
+            <div class="row">
+                <!-- Profile Picture -->
+                <div class="col-md-3 text-center">
+                    {% if employee.profile_pic %}
+                        <a href="{{ employee.profile_pic.url }}" target="_blank">
+                            <img src="{{ employee.profile_pic.url }}" 
+                                 class="img-fluid rounded-circle border shadow-sm mb-3" 
+                                 width="150" 
+                                 alt="Profile Picture">
+                        </a>
+                    {% else %}
+                        <img src="/media/profile_pics/default.webp" 
+                             class="img-fluid rounded-circle border shadow-sm mb-3" 
+                             width="150" 
+                             alt="Default Profile Picture">
+                    {% endif %}
+                </div>
+
+                <!-- Employee Details -->
+                <div class="col-md-9">
+                    <div class="row">
+                        <div class="col-md-6"><strong>Name:</strong> {{ employee.emp_name }}</div>
+                        <div class="col-md-6"><strong>Department:</strong> {{ employee.dept_id.dept_name }}</div>
+                        <div class="col-md-6"><strong>Designation:</strong> {{ employee.designation_id.designation_name|default:"Not Assigned" }}</div>
+                        <div class="col-md-6"><strong>Email:</strong> {{ employee.email_id }}</div>
+                        <div class="col-md-6"><strong>Phone:</strong> {{ employee.phn_no }}</div>
+                        <div class="col-md-6"><strong>Aadhaar:</strong> {{ employee.adhar_no|default:"N/A" }}</div>
+                        <div class="col-md-6"><strong>Date of Birth:</strong> {{ employee.DOB|date:"d M Y" }}</div>
+                        <div class="col-md-6"><strong>Joining Date:</strong> {{ employee.date_of_joining|date:"d M Y" }}</div>
+                        <div class="col-md-6">
+                            <strong>Status:</strong> 
+                            <span class="badge {% if employee.status == 'Active' %}bg-success{% else %}bg-danger{% endif %}">
+                                {{ employee.status }}
+                            </span>
+                        </div>
+                        <div class="col-md-6"><strong>Gender:</strong> {{ employee.gender }}</div>
+                        <div class="col-md-6"><strong>Residential Address:</strong> {{ employee.residential_address }}</div>
+                        <div class="col-md-6"><strong>Current Address:</strong> {{ employee.current_address }}</div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Role Assignments -->
+            <h3 class="mt-4">Role Assignments</h3>
+            {% if role_assignments %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Role Name</th>
+                                <th>Assigned Date</th>
+                                <th>Relieved Date</th>
+                                <th>Mode</th>
+                                <th>Document</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for role_assignment in role_assignments %}
+                                <tr>
+                                    <td>{{ role_assignment.role_id.role_name }}</td>
+                                    <td>{{ role_assignment.assigned_date|date:"d M Y" }}</td>
+                                    <td>{{ role_assignment.relieved_date|date:"d M Y"|default:"Ongoing" }}</td>
+                                    <td>{{ role_assignment.get_mode_display|default:"N/A" }}</td>
+
+
+                                    <td>
+                                        {% if role_assignment.document %}
+                                            <a href="{{ role_assignment.document.url }}" target="_blank" class="btn btn-sm btn-info">
+                                                View Document
+                                            </a>
+                                        {% else %}
+                                            <span class="text-muted">No Document</span>
+                                        {% endif %}
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted text-center">No roles assigned yet.</p>
+            {% endif %}
+
+            <!-- Event Participation -->
+            <h3 class="mt-4">Event Participations</h3>
+            {% if event_participations %}
+                <div class="table-responsive">
+                    <table class="table table-bordered table-striped table-hover">
+                        <thead class="thead-dark">
+                            <tr>
+                                <th>Event Name</th>
+                                <th>From</th>
+                                <th>To</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for participation in event_participations %}
+                                <tr>
+                                    <td>{{ participation.event_id.title }}</td>
+                                    <td>{{ participation.event_id.from_date|date:"d M Y" }}</td>
+                                    <td>{{ participation.event_id.to_date|date:"d M Y" }}</td>
+                                </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            {% else %}
+                <p class="text-muted text-center">No events participated yet.</p>
+            {% endif %}
+        </div>
+    </div>
+
+</div>
+
+<!-- JavaScript for Back Button -->
+<script>
+    function goBack() {
+        window.history.back();
+    }
+</script>
+
+<!-- Custom CSS -->
+<style>
+    .bg-success { background-color: #28a745 !important; }
+    .bg-danger { background-color: #dc3545 !important; }
+    .card { border-radius: 10px; overflow: hidden; }
+    .card-header { font-weight: bold; }
+    .table { background-color: white; border-radius: 10px; }
+    .thead-dark { background-color: #343a40; color: white; }
+    .table-hover tbody tr:hover { background-color: #f1f1f1; }
+    .text-muted { font-style: italic; }
+    .btn-secondary { font-weight: bold; }
+</style>
+{% endblock %}

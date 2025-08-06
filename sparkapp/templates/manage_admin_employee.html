@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+
+{% block title %}Manage Admin Employees{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h2 class="mb-4 text-center text-primary">Manage Admin Employees</h2>
+
+    <!-- Employee Form -->
+    <div class="card shadow-sm p-4 mb-4 bg-light">
+        <h4 class="mb-3 text-secondary">Add New Employee</h4>
+        <form method="POST">
+            {% csrf_token %}
+            <div class="row">
+                {% for field in form %}
+                <div class="col-md-6 mb-3">
+                    <label class="form-label font-weight-bold">{{ field.label }}</label>
+                    {{ field }}
+                    {% if field.errors %}
+                        <div class="text-danger small">
+                            {{ field.errors|striptags }}
+                        </div>
+                    {% endif %}
+                </div>
+                {% endfor %}
+            </div>
+            <button type="submit" class="btn btn-primary btn-block">Add Employee</button>
+        </form>
+    </div>
+
+    <!-- Error Messages -->
+    {% if form.errors %}
+    <div class="alert alert-danger mt-3">
+        <strong>Errors:</strong>
+        <ul>
+            {% for field, errors in form.errors.items %}
+                {% for error in errors %}
+                    <li><strong>{{ field|capfirst }}:</strong> {{ error }}</li>
+                {% endfor %}
+            {% endfor %}
+        </ul>
+    </div>
+    {% endif %}
+
+   
+    <!-- Employee List -->
+    <h3 class="mt-5 text-center text-secondary">Existing Employees</h3>
+    <div class="table-responsive">
+        <table class="table table-hover table-bordered mt-3">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Username</th>
+                    <th>Name</th>
+                    <th>Department</th>
+                    <th>Email</th>
+                    
+                </tr>
+            </thead>
+            <tbody id="employeeTable">
+                {% for emp in employees %}
+                <tr>
+                    <td>{{ emp.user.username }}</td>
+                    <td>{{ emp.emp_name }}</td>
+                    <td>{{ emp.dept_id.dept_name }}</td>
+                    <td>{{ emp.email_id }}</td>
+        
+                </tr>
+                {% empty %}
+                <tr>
+                    <td colspan="5" class="text-center text-muted">No employees found</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+
+<!-- Employee Search Script -->
+<script>
+    document.getElementById("searchInput").addEventListener("keyup", function() {
+        let filter = this.value.toLowerCase();
+        let rows = document.querySelectorAll("#employeeTable tr");
+        
+        rows.forEach(row => {
+            let text = row.innerText.toLowerCase();
+            row.style.display = text.includes(filter) ? "" : "none";
+        });
+    });
+</script>
+{% endblock %}

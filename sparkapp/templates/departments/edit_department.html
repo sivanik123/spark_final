@@ -1,0 +1,15 @@
+<!-- templates/departments/edit_department.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Edit Department</h2>
+
+<form method="POST">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Department</button>
+</form>
+
+<a href="{% url 'manage_department' %}">Back to Department List</a>
+
+{% endblock %}

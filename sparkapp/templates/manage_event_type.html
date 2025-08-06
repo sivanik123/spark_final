@@ -1,0 +1,41 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="container">
+    <h2 class="text-center mt-4">Manage Event Types</h2>
+
+    <!-- Button to Add a New Event Type -->
+    <a href="{% url 'add_event_type' %}" class="btn btn-success mb-3">Add New Event Type</a>
+
+    <!-- Table to Display Event Types -->
+    <table class="table table-bordered table-striped">
+        <thead class="table-dark">
+            <tr>
+                <th>ID</th>
+                <th>Description</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for event_type in event_types %}
+                <tr>
+                    <td>{{ event_type.type_id }}</td>
+                    <td>{{ event_type.type_description }}</td>
+                    <td>
+                        <div class="d-flex gap-2">
+                            <a href="{% url 'edit_event_type' event_type.type_id %}" class="btn btn-primary btn-sm">Edit</a>
+                            <a href="{% url 'delete_event_type' event_type.type_id %}" class="btn btn-danger btn-sm"
+                               onclick="return confirm('Are you sure you want to remove this student?')">Remove</a>
+                        </div>
+                        
+                    </td>
+                </tr>
+            {% empty %}
+            <tr>
+                <td colspan="3" class="text-center">No Event Types Available</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}

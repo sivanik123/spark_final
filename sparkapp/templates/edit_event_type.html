@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+
+{% block title %}Edit Event Type{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="card shadow-lg">
+        <div class="card-header bg-primary text-white text-center">
+            <h2 class="mb-0">Edit Event Type</h2>
+        </div>
+        <div class="card-body">
+            <form method="post">
+                {% csrf_token %}
+                {{ form.as_p }}
+                <div class="text-center">
+                    <button type="submit" class="btn btn-success">Save Changes</button>
+                    <a href="{% url 'manage_event_type' %}" class="btn btn-secondary">Back to Manage Event Types</a>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

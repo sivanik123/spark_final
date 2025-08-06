@@ -1,0 +1,52 @@
+{% extends 'base.html' %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+
+{% block content %}
+    <h2 class="mb-3 text-center">Welcome, Admin</h2>
+    <p class="text-muted text-center">Manage events, view user participation, and oversee site activities.</p>
+
+    <div class="row mt-4">
+        <div class="col-md-10 mx-auto">
+            <div class="row g-3">
+                <!-- Admin Dashboard Buttons -->
+                <div class="col-md-6">
+                    <a href="{% url 'manage_admin_employee' %}" class="admin-btn">
+                        <i class="fas fa-user-tie"></i> Manage Admin Employees
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'manage_department' %}" class="admin-btn">
+                        <i class="fas fa-building"></i> Manage Department
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'manage_designation' %}" class="admin-btn">
+                        <i class="fas fa-id-badge"></i> Manage Designation
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'manage_event_type' %}" class="admin-btn">
+                        <i class="fas fa-calendar-alt"></i> Manage Event Type
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'manage_venue' %}" class="admin-btn">
+                        <i class="fas fa-map-marker-alt"></i> Manage Venue
+                    </a>
+                </div>
+                <div class="col-md-6">
+                    <a href="{% url 'manage_role' %}" class="admin-btn">
+                        <i class="fas fa-user-shield"></i> Manage Role
+                    </a>
+                </div>
+                <div class="col-md-12">
+                    <a href="{% url 'manage_event' %}" class="admin-btn">
+                        <i class="fas fa-calendar-check"></i> Manage Event
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

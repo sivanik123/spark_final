@@ -1,0 +1,85 @@
+{% extends 'base.html' %}
+
+{% block title %}Teacher Dashboard{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row justify-content-center">
+        <!-- Profile Section -->
+        <div class="col-md-4">
+            <div class="card profile-card text-center shadow-sm p-3">
+                <div class="card-body">
+                    {% if user.employee.profile_pic %}
+                        <img src="{{ user.employee.profile_pic.url }}" 
+                             alt="Profile Picture" 
+                             class="img-fluid rounded-circle border shadow-sm mb-3" 
+                             width="120">
+                    {% else %}
+                        <img src="/media/profile_pics/default.webp" 
+                             alt="Default Profile Picture" 
+                             class="img-fluid rounded-circle border shadow-sm mb-3" 
+                             width="120">
+                    {% endif %}
+
+                    <h4 class="text-dark">{{ user.employee.emp_name }}</h4>
+                    <p class="text-muted mb-1"><strong>Email:</strong> {{ user.email }}</p>
+                    <p class="text-muted"><strong>Department:</strong> {{ user.employee.dept_id }}</p>
+
+                    <a href="{% url 'edit_employee' request.user.id %}" class="btn btn-outline-primary btn-sm mt-2">
+                        <i class="fas fa-edit"></i> Edit Profile
+                    </a>
+                    <a href="{% url 'password_change' %}" class="btn btn-outline-primary btn-sm mt-2">Change Password</a>
+
+                </div>
+            </div>
+        </div>
+
+        <!-- Action Buttons (Vertically Aligned) -->
+        <div class="col-md-6">
+            <div class="card action-card shadow-sm text-center p-3 mb-3">
+                <div class="card-body">
+                    <h5 class="text-secondary">Event Participation</h5>
+                    <p class="text-muted small">Manage and track your events.</p>
+                    <a href="{% url 'manage_event_participation' %}" class="btn btn-primary btn-block">
+                        <i class="fas fa-calendar-check"></i> Manage Events
+                    </a>
+                </div>
+            </div>
+
+            <div class="card action-card shadow-sm text-center p-3">
+                <div class="card-body">
+                    <h5 class="text-secondary">Role Assignments</h5>
+                    <p class="text-muted small">View and update assigned roles.</p>
+                    <a href="{% url 'manage_role_assignment' %}" class="btn btn-danger btn-block">
+                        <i class="fas fa-user-cog"></i> Manage Roles
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Custom CSS -->
+<style>
+    .profile-card {
+        background: #f8f9fa;
+        border-left: 5px solid #007bff;
+        border-radius: 10px;
+    }
+
+    .action-card {
+        background: #ffffff;
+        border-radius: 10px;
+        transition: transform 0.3s ease-in-out;
+    }
+
+    .action-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .btn-block {
+        width: 100%;
+    }
+</style>
+{% endblock %}

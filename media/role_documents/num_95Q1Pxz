@@ -1,0 +1,12 @@
+echo "enter the three numbers:"
+read num1 num2 num3
+
+if (( num1>num2 && num1>num3 ))
+then
+	echo "the largest number is : $num1"
+elif (( num2>num3 && num2>num1 ))
+then
+	echo "the largest number is : $num2"
+else
+	echo "the largest number is : $num3"
+fi

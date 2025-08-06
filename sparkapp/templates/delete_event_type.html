@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Delete Event Type</title>
+</head>
+<body>
+    <h2>Are you sure you want to delete "{{ event_type.type_description }}"?</h2>
+    
+    <form method="post">
+        {% csrf_token %}
+        <button type="submit">Yes, Delete</button>
+    </form>
+
+    <a href="{% url 'manage_event_type' %}">Cancel</a>
+</body>
+</html>

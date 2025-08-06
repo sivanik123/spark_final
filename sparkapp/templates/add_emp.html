@@ -1,0 +1,24 @@
+{% extends 'base.html' %}
+
+{% block title %}Add Employee{% endblock %}
+
+{% block content %}
+<h2>Add Employee</h2>
+
+<form method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    {{ user_form.as_p }}
+
+    {% if full_form %}
+        <!-- Full form for Teachers -->
+        {{ employee_form.as_p }}
+    {% else %}
+        <!-- Limited form for Admins (only username, password, email, and department) -->
+        <p>{{ employee_form.department.label_tag }} {{ employee_form.department }}</p>
+    {% endif %}
+
+    <button type="submit" class="btn btn-primary">Submit</button>
+</form>
+
+{% endblock %}
